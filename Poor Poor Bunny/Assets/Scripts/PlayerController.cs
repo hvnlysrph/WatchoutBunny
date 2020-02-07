@@ -12,14 +12,13 @@ public class PlayerController : MonoBehaviour {
     Vector2 newPosition;
     Rigidbody2D rb;
     Spawner spawnScript;
-    private GameManagerScript manager;
+    
 
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         spawnScript = GameObject.Find("SpikeSpawner").GetComponent<Spawner>();
-        manager = GameObject.Find("GameManager").GetComponent<GameManagerScript>();
     }
    
 	
@@ -46,7 +45,7 @@ public class PlayerController : MonoBehaviour {
         if(collision.gameObject.tag == "spike")
         {
            
-            manager.GameOver();
+            GameManager.instance.GameOver();
             gameObject.SetActive(false);
 
         }

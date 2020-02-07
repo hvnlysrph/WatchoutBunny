@@ -4,7 +4,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class GameManagerScript : MonoBehaviour {
+public class GameManager : MonoBehaviour {
+
+    public static GameManager instance;
 
     GameObject bunny, spawner;
 
@@ -46,6 +48,14 @@ public class GameManagerScript : MonoBehaviour {
     }
     // Use this for initialization
     void Start () {
+
+        if (instance == null)
+            instance = this;
+        else
+            Destroy(gameObject);
+
+        DontDestroyOnLoad(gameObject);
+
         bunny.SetActive(false);
         spawner.SetActive(false);
         startMenu.SetActive(true);

@@ -7,12 +7,10 @@ public class Spikes : MonoBehaviour {
 
     public float rotateSpeed;
     public VolumeControl sound;
-    private GameManagerScript manager;
     
   
 	// Use this for initialization
 	void Start () {
-        manager = GameObject.Find("GameManager").GetComponent<GameManagerScript>();
     }
 	
 	// Update is called once per frame
@@ -28,7 +26,7 @@ public class Spikes : MonoBehaviour {
             sound = GameObject.Find("GameSounds").GetComponent<VolumeControl>();
             sound.ScoreAudio();
             //manager.AddScore(1);
-            manager.Score = 1;
+            GameManager.instance.Score = 1;
             Destroy(gameObject);
         }
         if(collision.gameObject.tag == "Player")
