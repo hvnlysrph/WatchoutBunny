@@ -25,7 +25,7 @@ public class Spawner : MonoBehaviour {
     void SpawnSpike()
     {
         float randomX = Random.Range(-xPositionLimit, xPositionLimit);
-        Vector3 spawnPosition = new Vector2(randomX, transform.position.y);
+        Vector3 spawnPosition = new Vector3(randomX, transform.position.y,-0.3f);
 
         Instantiate(spikePrefab, spawnPosition, Quaternion.identity);
     }

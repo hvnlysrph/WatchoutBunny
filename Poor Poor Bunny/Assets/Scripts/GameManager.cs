@@ -22,31 +22,22 @@ public class GameManager : MonoBehaviour {
     public Text scoreText;
 
     VolumeControl sounds;
-
-	
-	/* public void StartGame()
+    public int Score
     {
-        SetGame(true);
-        menuPanel.SetActive(false);
-    }*/
-
-    void SetGame(bool set)
-    {
-        bunny.SetActive(set);
-        spawner.SetActive(set);
-        //scorePanel.SetActive(set);
+        set
+        {
+            score += value;
+        }
     }
-	
-	
-
+/*********************************************************************/
     private void Awake()
     {
         bunny = GameObject.Find("rabbit");
         spawner = GameObject.Find("SpikeSpawner");
         spawnScript = spawner.GetComponent<Spawner>();
         sounds = GameObject.Find("GameSounds").GetComponent<VolumeControl>();
-    }
-    // Use this for initialization
+    }//Start
+    // creates singleton and sets up menu panel
     void Start () {
 
         if (instance == null)
@@ -68,18 +59,65 @@ public class GameManager : MonoBehaviour {
         score = 0;
         currentLevel = 0;
 
-	}
-	
-	// Update is called once per frame
-	void Update () {
+	}//Awake
+/*---------------Menu Methods---------------------*/
+    public void StartGame()
+    {
+        bunny.SetActive(true);
+        spawner.SetActive(true);
+        startMenu.SetActive(false);
+        scoreUI.SetActive(true);
+        replayPanel.SetActive(false);
+        score = 0;
+        //AddScore(score);
+        spawnScript.StartSpawning(1);
+    }//Start Game
+
+    public void Instructions()
+    {
+        buttons.SetActive(false);
+        instructions.SetActive(true);
+        settings.SetActive(false);
+    }//Instructions
+
+    public void ReturnToButtons()
+    {
+        buttons.SetActive(true);
+        instructions.SetActive(false);
+        settings.SetActive(false);
+        replayPanel.SetActive(false);
+    }//ReturnToButtons
+
+    public void SettingsMenu()
+    {
+        buttons.SetActive(false);
+        instructions.SetActive(false);
+        settings.SetActive(true);
+    }//SettingsMenu
+    public void BackToMain()
+    {
+        replayPanel.SetActive(false);
+        startMenu.SetActive(true);
+        ReturnToButtons();
+    }//BackToMain
+    /*----------------------------------------*/
+
+    void Update () {
         CheckLevel();
         UpdateScore();
         currentScore = score;
-	}
+	}//Update
+    void SetGame(bool set)
+    {
+        bunny.SetActive(set);
+        spawner.SetActive(set);
+        //scorePanel.SetActive(set);
+    }//SetGame
 
+    //checking current level and plays appropriate animation on level up
     void CheckLevel()
     {
-        if (score >= level3 && currentLevel == 2)
+        if (score >= level1 && currentLevel == 0)
         {
             StartCoroutine(LevelUp());
         }
@@ -87,11 +125,11 @@ public class GameManager : MonoBehaviour {
         {
             StartCoroutine(LevelUp());
         }
-        else if (score >= level1 && currentLevel == 0)
+        else if (score >= level3 && currentLevel == 2)
         {
             StartCoroutine(LevelUp());
         }
-    }
+    }//CheckLevel
 
     IEnumerator LevelUp()
     {
@@ -110,52 +148,7 @@ public class GameManager : MonoBehaviour {
         yield return new WaitForSeconds(2f);
         spawnScript.StartSpawning(spawnRate);
         levelUp.SetActive(false);
-    }
-
-    public void StartGame()
-    {
-        bunny.SetActive(true);
-        spawner.SetActive(true);
-        startMenu.SetActive(false);
-        scoreUI.SetActive(true);
-        replayPanel.SetActive(false);
-        score = 0;
-        //AddScore(score);
-        spawnScript.StartSpawning(1);
-    }
-
-    public void Instructions()
-    {
-        buttons.SetActive(false);
-        instructions.SetActive(true);
-        settings.SetActive(false);
-    }
-
-    public void ReturnToButtons()
-    {
-        buttons.SetActive(true);
-        instructions.SetActive(false);
-        settings.SetActive(false);
-        replayPanel.SetActive(false);
-    }
-
-    public void SettingsMenu()
-    {
-        buttons.SetActive(false);
-        instructions.SetActive(false);
-        settings.SetActive(true);
-    }
-
-    /*public void AddScore(int newScore)
-    {
-        score += newScore;
-        UpdateScore();
-
-        if(score > highScore)
-        {
-            highScore = score;
-        }
-    }*/
+    }//LevelUp
 
     void UpdateScore()
     {
@@ -174,21 +167,9 @@ public class GameManager : MonoBehaviour {
         scoreUI.SetActive(false);
         levelUp.SetActive(false);
         currentLevel = 0;
+        spawnRate = 1f;
         score = 0;
-    }
+    }//GameOver
 
-    public void BackToMain()
-    {
-        replayPanel.SetActive(false);
-        startMenu.SetActive(true);
-        ReturnToButtons();
-    }
 
-    public int Score
-    {
-        set
-        {
-            score += value;
-        }
-    }
 }
