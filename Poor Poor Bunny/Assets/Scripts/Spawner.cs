@@ -4,23 +4,14 @@ using UnityEngine;
 
 public class Spawner : MonoBehaviour {
 
-    //Spawn spike at random location
-    //Drop spike
 
     public GameObject spikePrefab;
     public float xPositionLimit;
-    //public int spawnRate;
 
-	// Use this for initialization
 	void Start () {
         //SpawnSpike();
         //StartSpawning();
     }
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 
     void SpawnSpike()
     {

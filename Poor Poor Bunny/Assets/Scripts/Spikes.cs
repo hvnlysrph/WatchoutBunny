@@ -9,11 +9,6 @@ public class Spikes : MonoBehaviour {
     public VolumeControl sound;
     
   
-	// Use this for initialization
-	void Start () {
-    }
-	
-	// Update is called once per frame
 	void FixedUpdate () {
 
         transform.Rotate(0, 0, rotateSpeed);

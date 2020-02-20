@@ -60,7 +60,13 @@ public class GameManager : MonoBehaviour {
         currentLevel = 0;
 
 	}//Awake
-/*---------------Menu Methods---------------------*/
+    void Update()
+    {
+        CheckLevel();
+        UpdateScore();
+        currentScore = score;
+    }//Update
+     /*---------------Menu Methods---------------------*/
     public void StartGame()
     {
         bunny.SetActive(true);
@@ -100,19 +106,15 @@ public class GameManager : MonoBehaviour {
         startMenu.SetActive(true);
         ReturnToButtons();
     }//BackToMain
-    /*----------------------------------------*/
 
-    void Update () {
-        CheckLevel();
-        UpdateScore();
-        currentScore = score;
-	}//Update
     void SetGame(bool set)
     {
         bunny.SetActive(set);
         spawner.SetActive(set);
         //scorePanel.SetActive(set);
     }//SetGame
+    /*----------------------------------------*/
+
 
     //checking current level and plays appropriate animation on level up
     void CheckLevel()

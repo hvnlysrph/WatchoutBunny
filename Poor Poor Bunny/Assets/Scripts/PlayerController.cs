@@ -13,7 +13,7 @@ public class PlayerController : MonoBehaviour {
     Rigidbody2D rb;
     Spawner spawnScript;
     
-
+/*******************************************************************/
 
     private void Awake()
     {
@@ -26,6 +26,18 @@ public class PlayerController : MonoBehaviour {
 	void FixedUpdate () {
         MovePlayer();
 	}
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "spike")
+        {
+
+            GameManager.instance.GameOver();
+            gameObject.SetActive(false);
+
+        }
+    }
+
 
     void MovePlayer()
     {
@@ -40,14 +52,4 @@ public class PlayerController : MonoBehaviour {
 
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if(collision.gameObject.tag == "spike")
-        {
-           
-            GameManager.instance.GameOver();
-            gameObject.SetActive(false);
-
-        }
-    }
 }
