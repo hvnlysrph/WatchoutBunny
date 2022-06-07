@@ -1,14 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 using UnityEngine;
 
 public class VolumeControl : MonoBehaviour {
 
     //public AudioSource music;
-    private float musicVolume = 1f;
+    [SerializeField] float musicVolume = 1f;
     private float soundVolume = 1f;
-    public AudioSource sounds;
+    public AudioSource sounds, music;
     public AudioClip levelUp, scoreAlert, bunnyHurt;
+    [SerializeField] Slider musicVolumeSlider, soundVolumeSlider;
 
 	// Use this for initialization
 	void Start () {
@@ -18,18 +20,18 @@ public class VolumeControl : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        //music.volume = musicVolume;
-        // sounds.volume = soundVolume;
+        music.volume = musicVolume;
+        sounds.volume = soundVolume;
 	}
 
     public void SetVolumeMusic(float vol)
     {
-        musicVolume = vol;
+        musicVolume = musicVolumeSlider.value;
     }
 
     public void SetSoundVolume(float vol)
     {
-        soundVolume = vol;
+        soundVolume = soundVolumeSlider.value;
     }
 
     public void LevelUpAudio()
@@ -52,5 +54,17 @@ public class VolumeControl : MonoBehaviour {
         
         sounds.clip = bunnyHurt;
         sounds.Play();
+    }
+
+    private void Load()
+    {
+        musicVolumeSlider.value = PlayerPrefs.GetFloat("musicVolume");
+        soundVolumeSlider.value = PlayerPrefs.GetFloat("soundVolume");
+    }
+
+    private void Save()
+    {
+        PlayerPrefs.SetFloat("musicVolume,", musicVolumeSlider.value);
+        PlayerPrefs.SetFloat("soundVolume,", soundVolumeSlider.value);
     }
 }
